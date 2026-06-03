@@ -10,7 +10,7 @@ st.set_page_config(page_title="ATP 2023 Dashboard", page_icon="🎾", layout="wi
 
 @st.cache_data
 def load_data():
-    df = pd.read_csv("data/apt_matches_2023.csv")
+    df = pd.read_csv("apt_matches_2023.csv")
     df["tourney_date"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d", errors="coerce")
     num_cols = ["minutes","winner_age","loser_age","winner_rank","loser_rank",
                 "w_ace","l_ace","w_df","l_df","w_svpt","l_svpt",
