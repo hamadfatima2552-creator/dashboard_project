@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-from docx import Document
-import io
 from charts import (plot_pie_chart, plot_histogram, plot_line_chart, plot_bar_chart,
                     plot_scatter, plot_box_plot, plot_heatmap, plot_area_chart,
                     plot_count_plot, plot_violin)
@@ -12,9 +10,7 @@ st.set_page_config(page_title="ATP 2023 Dashboard", page_icon="🎾", layout="wi
 
 @st.cache_data
 def load_data():
-    doc = Document("data/apt_matches_2023.cvs.docx")
-    text = "\n".join([para.text for para in doc.paragraphs])
-    df = pd.read_csv(io.StringIO(text))
+    df = pd.read_csv("data/apt_matches_2023.csv")
     df["tourney_date"] = pd.to_datetime(df["tourney_date"], format="%Y%m%d", errors="coerce")
     num_cols = ["minutes","winner_age","loser_age","winner_rank","loser_rank",
                 "w_ace","l_ace","w_df","l_df","w_svpt","l_svpt",
@@ -27,7 +23,7 @@ def load_data():
 df = load_data()
 
 st.title("ATP 2023 Tennis Match Dashboard")
-st.markdown("*Explore match statistics, player performance and tournament insights from the 2023 ATP season.*")
+st.markdown("*Explore match statistics, player performance and tournament insights.*")
 st.markdown("---")
 
 st.sidebar.header("Filters")
